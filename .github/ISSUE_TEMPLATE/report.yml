@@ -1,0 +1,21 @@
+name: Report a gathering
+description: A gathering that looks misleading, or a group that misuses its tag.
+title: "Report: "
+labels: ["report"]
+body:
+  - type: markdown
+    attributes:
+      value: This issue is public. Describe what is wrong; leave out names and contact details.
+  - type: input
+    id: link
+    attributes:
+      label: Gathering link
+      placeholder: https://thd-room-finder.vercel.app/g/amber-otter-17
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong?
+    validations:
+      required: true

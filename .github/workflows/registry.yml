@@ -1,0 +1,35 @@
+name: Registry
+
+# Tracks registration requests by their labels (README.md). New requests get
+# a checklist; a THD AI member who is not the applicant approves, asks for
+# more, declines or revokes with a label. Each step updates the app through a
+# service-only database function and comments on the issue; approval also
+# writes orgs/<slug>.json.
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: registry-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  track:
+    if: contains(github.event.issue.title, 'Register:') || contains(join(github.event.issue.labels.*.name, ','), 'registry:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v8
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        with:
+          # Membership checks need an org-readable token; GITHUB_TOKEN works
+          # for public members, REGISTRY_TOKEN (read:org) for everyone.
+          github-token: ${{ secrets.REGISTRY_TOKEN || github.token }}
+          script: await require('./.github/scripts/registry.cjs')({ github, context, core });

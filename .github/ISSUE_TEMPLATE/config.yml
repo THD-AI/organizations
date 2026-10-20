@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: THD Room Finder
+    url: https://github.com/arudaev/THD-Room-Finder/discussions
+    about: Questions about the app itself.

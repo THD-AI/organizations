@@ -1,0 +1,73 @@
+name: Register your group
+description: Verify a student group so it can host gatherings in THD Room Finder.
+title: "Register: "
+labels: ["registry: waiting for proof"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Start in THD Room Finder (**Profile → Register your group**) so you get a request number; the app fills it in here.
+        This issue is public: only the group's public details, please. No student emails or phone numbers.
+  - type: input
+    id: request
+    attributes:
+      label: Request number
+      description: From the app.
+      placeholder: "17"
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Group name
+      placeholder: Campus Connect
+    validations:
+      required: true
+  - type: input
+    id: slug
+    attributes:
+      label: Short name
+      description: Lower case letters, digits and dashes. It becomes the group's page, /o/campus-connect.
+      placeholder: campus-connect
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Official website or account
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: role
+    attributes:
+      label: Your role in the group
+      placeholder: Chair, board member, event lead…
+    validations:
+      required: true
+  - type: dropdown
+    id: proof_kind
+    attributes:
+      label: Proof that you speak for the group
+      options:
+        - A post or story from the group's official account that names the request number
+        - A page on the group's website that lists me in its board or team
+        - A confirmation from the student union (StuVe)
+    validations:
+      required: true
+  - type: input
+    id: proof
+    attributes:
+      label: Link to the proof
+      placeholder: https://
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Rules
+      options:
+        - label: Our gatherings only use rooms THD approved for us at that time.
+          required: true
+        - label: We use the people list only to plan our gatherings and never share it.
+          required: true
