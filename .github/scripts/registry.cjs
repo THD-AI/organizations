@@ -95,11 +95,14 @@ module.exports = async ({ github, context, core }) => {
     const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number: number });
     if (!comments.some((c) => c.body?.includes(MARK))) {
       await comment(
+        // Plain steps, not task-list boxes: a ticked box looked like approval
+        // but changes nothing. Only the label decides.
         `${MARK}\nThanks for registering **${f.name || 'your group'}**. What happens next:\n\n` +
-          `- [${problems.length ? ' ' : 'x'}] The form is complete${problems.length ? `: still missing ${problems.join(', ')}` : ''}.\n` +
-          '- [ ] A THD AI member who is not you checks the proof.\n' +
-          '- [ ] Approved: the group gets its file in `orgs/` and can host gatherings in the app.\n\n' +
-          'The app shows the same status. Edit the issue to add anything missing.',
+          `1. ${problems.length ? `The form still needs ${problems.join(', ')}` : 'The form is complete ✓'}.\n` +
+          '2. A THD AI member who is not you checks the proof.\n' +
+          '3. Approved: the group gets its file in `orgs/` and can host gatherings in the app.\n\n' +
+          'The app shows the same status. Edit the issue to add anything missing.\n\n' +
+          '**Reviewers:** decide with a label in the sidebar, `registry: approved`, `registry: needs info` or `registry: declined`. Ticking anything in this comment does nothing.',
       );
     } else if (problems.length) {
       await comment(`Still missing: ${problems.join(', ')}.`);
