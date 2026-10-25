@@ -55,7 +55,7 @@ async function setStatus(no, status, issueNumber) {
   return JSON.parse(text);
 }
 
-module.exports = async ({ github, context, core, getOctokit }) => {
+module.exports = async ({ github, context, core }) => {
   const { owner, repo } = context.repo;
   const issue = context.payload.issue;
   const number = issue.number;
@@ -114,7 +114,8 @@ module.exports = async ({ github, context, core, getOctokit }) => {
   let member = false;
   try {
     // Private members are visible only to an org-readable token.
-    const orgReader = process.env.REGISTRY_TOKEN && getOctokit ? getOctokit(process.env.REGISTRY_TOKEN) : github;
+    // github-script's client class, signed in with the org-readable token.
+    const orgReader = process.env.REGISTRY_TOKEN ? new github.constructor({ auth: process.env.REGISTRY_TOKEN }) : github;
     const res = await orgReader.rest.orgs.checkMembershipForUser({ org: ORG, username: actor });
     member = res.status === 204;
   } catch {
