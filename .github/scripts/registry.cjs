@@ -102,8 +102,7 @@ module.exports = async ({ github, context, core }) => {
           '2. A THD AI member who is not you checks the proof.\n' +
           '3. Approved: the group gets its file in `orgs/` and can host gatherings in the app.\n\n' +
           'The app shows the same status. Edit the issue to add anything missing.\n\n' +
-          '**Reviewers:** decide with a label in the sidebar, `registry: approved`, `registry: needs info` or `registry: declined`. Ticking anything in this comment does nothing.\n\n' +
-          '![Click the gear next to Labels, then tick registry: approved](https://raw.githubusercontent.com/THD-AI/organizations/main/.github/assets/approve-label.png)',
+          '**Reviewers:** decide with a label in the sidebar, `registry: approved`, `registry: needs info` or `registry: declined`. Ticking anything in this comment does nothing.',
       );
     } else if (problems.length) {
       await comment(`Still missing: ${problems.join(', ')}.`);
