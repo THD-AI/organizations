@@ -20,15 +20,15 @@ body:
     id: name
     attributes:
       label: Group name
-      placeholder: Campus Connect
+      placeholder: THD AI
     validations:
       required: true
   - type: input
     id: slug
     attributes:
       label: Short name
-      description: Lower case letters, digits and dashes. It becomes the group's page, /o/campus-connect.
-      placeholder: campus-connect
+      description: Lower case letters, digits and dashes. It becomes the group's page, /o/thd-ai.
+      placeholder: thd-ai
     validations:
       required: true
   - type: input
