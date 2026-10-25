@@ -33,4 +33,4 @@ jobs:
           # orgs/ files use the workflow's own token, which can write here.
           REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
         with:
-          script: await require('./.github/scripts/registry.cjs')({ github, context, core, getOctokit });
+          script: await require('./.github/scripts/registry.cjs')({ github, context, core });
