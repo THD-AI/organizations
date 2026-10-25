@@ -28,8 +28,9 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # Only for the membership check: GITHUB_TOKEN sees public members,
+          # REGISTRY_TOKEN (read:org) sees everyone. Labels, comments and the
+          # orgs/ files use the workflow's own token, which can write here.
+          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
         with:
-          # Membership checks need an org-readable token; GITHUB_TOKEN works
-          # for public members, REGISTRY_TOKEN (read:org) for everyone.
-          github-token: ${{ secrets.REGISTRY_TOKEN || github.token }}
-          script: await require('./.github/scripts/registry.cjs')({ github, context, core });
+          script: await require('./.github/scripts/registry.cjs')({ github, context, core, getOctokit });
